@@ -1,10 +1,9 @@
 pipeline {
-    agent any // Pipeline runs on any available agent
+    agent any
 
     stages {
         stage('Clean Workspace') {
             steps {
-                // Delete everything in workspace at start
                 deleteDir()
             }
         }
@@ -17,19 +16,20 @@ pipeline {
 
         stage('Pull Public Docker Image') {
             steps {
-                sh 'docker pull --pull=never midget/cowsay'
-        }
-
-        stage('Run Confluence Container') {
-            steps {
-
-                sh 'docker run --rm midget/cowsay Jenkins rocks! and currently runinng docker in docker!'
+                // Pull only if missing (safe + fast)
+                sh 'docker pull --pull=never midget/cowsay || true'
             }
         }
 
-        stage('Deploy') {
+        stage('Run Cowsay') {
             steps {
-                sh 'echo "You can now access Confluence on http://localhost:8090"'
+                sh 'docker run --rm midget/cowsay  --name jenkinsdind "Jenkins rocks! Running Docker-in-Docker like a boss!"'
+            }
+        }
+
+        stage('motd') {
+            steps {
+                echo '$(docker logs jenkinsdind)'
             }
         }
     }
