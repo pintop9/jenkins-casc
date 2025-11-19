@@ -1,4 +1,4 @@
-version: '3.8'
+
 services:
   jenkins:
     build:
@@ -6,7 +6,9 @@ services:
       dockerfile: ./docker/Dockerfile
     environment:
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
-      - jenkins_home:/var/jenkins_home
+    volumes:
+      - ./jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "8080:8080"
       - "50000:50000"

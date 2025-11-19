@@ -9,3 +9,27 @@ jenkins:
   authorizationStrategy:
     loggedInUsersCanDoAnything:
       allowAnonymousRead: false
+jobs:
+  - script: |
+      pipelineJob("my-public-github-repo-job") {
+        description("Pipeline job pulling from a public GitHub repo")
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url("https://github.com/pintop9/jenkins-casc.git")
+                }
+                branches {
+                  branch("main") 
+                }
+                extensions {
+                  wipeOutWorkspace()
+                  cleanBeforeCheckout()
+                }
+              }
+            }
+            scriptPath("Jenkinsfile") 
+            lightweight(true)
+          }
+        }
