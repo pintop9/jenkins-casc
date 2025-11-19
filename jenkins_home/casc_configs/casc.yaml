@@ -1,7 +1,12 @@
 unclassified:
-  gitSCM:
-    globalConfigName: "Jenkins CI"
-    globalConfigEmail: "jenkins@example.com"
+  globalConfigFiles:
+    gitConfig:
+      - id: "global-git-config"
+        name: "Global Git Config"
+        content: |
+          [user]
+            name = Jenkins CI
+            email = jenkins@example.com
 jenkins:
   systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin"
   securityRealm:
