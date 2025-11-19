@@ -23,6 +23,9 @@ pipeline {
 
         stage('Run Confluence Container') {
             steps {
+                sh '''
+                   docker rm -f confluence || true
+                '''
                 sh 'docker run -d -p 8090:8090 -p 8091:8091 --name="confluence" atlassian/confluence:8.9.7'
             }
         }
