@@ -23,7 +23,7 @@ pipeline {
 
         stage('Run Cowsay') {
             steps {
-                sh 'docker run --rm chuanwen/cowsay -f dragon "I breathe fire and DinD!""'
+                sh 'docker run --rm chuanwen/cowsay -f dragon "I breathe fire and DinD!"'
             }
         }
 
