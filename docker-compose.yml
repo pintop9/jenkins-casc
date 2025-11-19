@@ -1,16 +1,32 @@
-
 services:
+  docker:
+    image: docker:24-dind
+    privileged: true
+    environment:
+      - DOCKER_TLS_CERTDIR=
+    volumes:
+      - docker-data:/var/lib/docker
+
+
   jenkins:
     build:
       context: .
       dockerfile: ./docker/Dockerfile
     environment:
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
-    privileged: true 
-    volumes:
-      - ./jenkins_home/:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
+      - DOCKER_HOST=tcp://docker:2375
+    depends_on:
+      - docker
     ports:
       - "8080:8080"
       - "50000:50000"
+    volumes:
+      - ./jenkins_home/:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    group_add:
+      - docker
     restart: unless-stopped
+
+volumes:
+  docker-data:
+  jenkins_home:
