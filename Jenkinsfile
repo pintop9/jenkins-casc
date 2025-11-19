@@ -17,7 +17,7 @@ pipeline {
         stage('Pull Public Docker Image') {
             steps {
                 // Pull only if missing (safe + fast)
-                sh 'docker pull --pull=never rancher/cowsay || true'
+                sh 'docker pull rancher/cowsay || true'
             }
         }
 
