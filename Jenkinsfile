@@ -1,12 +1,26 @@
 pipeline {
     agent any // Specifies that the pipeline can run on any available agent
 
-    options {
-        skipStagesAfterUnstable()
-        wipeWorkspace()
+     options {
+        // Add timestamps to logs
         timestamps()
+        // Build discarder (optional)
+        buildDiscarder(logRotator(numToKeepStr: '10'))
     }
 
+    stages {
+        stage('Clean Workspace') {
+            steps {
+                // Delete everything in workspace at start
+                deleteDir()
+            }
+        }
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
     stages {
         stage('pull public docker image') {
             steps {
