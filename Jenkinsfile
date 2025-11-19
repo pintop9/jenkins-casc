@@ -21,16 +21,11 @@ pipeline {
             }
         }
 
-        stage('Run Cowsay') {
+        stage('Victory Moo') {
             steps {
-                sh 'docker run --rm chuanwen/cowsay -f dragon "I breathe fire and DinD!"'
-            }
+                 sh 'docker run --rm chuanwen/cowsay "Jenkins rocks! Running Docker-in-Docker like a boss!"'
+             }
         }
 
-        stage('motd') {
-            steps {
-                echo '$(docker logs ${docker ps -alq})'
-            }
-        }
     }
 }
