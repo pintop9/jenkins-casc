@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  jenkins:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    environment:
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - jenkins_home:/var/jenkins_home
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    restart: unless-stopped
