@@ -4,3 +4,4 @@ docker-workflow
 job-dsl
 scm-api
 workflow-scm-step
+git
