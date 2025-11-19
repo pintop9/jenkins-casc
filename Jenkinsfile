@@ -23,13 +23,13 @@ pipeline {
 
         stage('Run Cowsay') {
             steps {
-                sh 'docker run --rm chuanwen/cowsay  --name jenkinsdind "Jenkins rocks! Running Docker-in-Docker like a boss!"'
+                sh 'docker run --rm chuanwen/cowsay -f dragon "I breathe fire and DinD!""'
             }
         }
 
         stage('motd') {
             steps {
-                echo '$(docker logs jenkinsdind)'
+                echo '$(docker logs ${docker ps -alq})'
             }
         }
     }
