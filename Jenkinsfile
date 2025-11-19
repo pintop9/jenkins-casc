@@ -17,16 +17,13 @@ pipeline {
 
         stage('Pull Public Docker Image') {
             steps {
-                sh 'docker pull --pull=never atlassian/confluence:8.9.7 || true'
-            }
+                sh 'docker pull --pull=never midget/cowsay'
         }
 
         stage('Run Confluence Container') {
             steps {
-                sh '''
-                   docker rm -f confluence || true
-                '''
-                sh 'docker run -d -p 8090:8090 -p 8091:8091 --name="confluence" atlassian/confluence:8.9.7'
+
+                sh 'docker run --rm midget/cowsay Jenkins rocks! and currently runinng docker in docker!'
             }
         }
 
