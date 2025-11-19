@@ -25,7 +25,10 @@ jobs:
         definition {
           cpsScm {
             scm {
-              git("https://github.com/pintop9/jenkins-casc.git", "main")
+              git {
+                remote { url("https://github.com/pintop9/jenkins-casc.git") }
+                branches("main")
+              }
             }
             scriptPath("Jenkinsfile")
           }
