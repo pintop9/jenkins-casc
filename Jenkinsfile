@@ -17,13 +17,13 @@ pipeline {
 
         stage('Pull Public Docker Image') {
             steps {
-                sh 'docker pull atlassian/confluence:8.9.7'
+                sh 'docker pull --pull=never atlassian/confluence:8.9.7 || true'
             }
         }
 
         stage('Run Confluence Container') {
             steps {
-                sh 'docker run -d -p 8090:8090 --name="confluence" atlassian/confluence:8.9.7'
+                sh 'docker run -d -p 8090:8090 -p 8091:8091 --name="confluence" atlassian/confluence:8.9.7'
             }
         }
 
