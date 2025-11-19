@@ -23,9 +23,9 @@ pipeline {
 
         stage('Victory Moo') {
             steps {
-                 sh 'docker run --rm chuanwen/cowsay "Jenkins rocks! Running Docker-in-Docker like a boss!"'
+                 sh 'docker run --rm rancher/cowsay "Jenkins rocks! Running Docker-in-Docker like a boss!"'
              }
-        }
+    }
 
     }
 }
