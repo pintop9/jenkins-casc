@@ -1,12 +1,5 @@
 pipeline {
-    agent any // Specifies that the pipeline can run on any available agent
-
-     options {
-        // Add timestamps to logs
-        timestamps()
-        // Build discarder (optional)
-        buildDiscarder(logRotator(numToKeepStr: '10'))
-    }
+    agent any // Pipeline runs on any available agent
 
     stages {
         stage('Clean Workspace') {
@@ -21,23 +14,23 @@ pipeline {
                 checkout scm
             }
         }
-    stages {
-        stage('pull public docker image') {
+
+        stage('Pull Public Docker Image') {
             steps {
-                sh 'docker pull atlassian/confluence:8.9.7' 
+                sh 'docker pull atlassian/confluence:8.9.7'
             }
         }
-        stage('run confluence container') {
+
+        stage('Run Confluence Container') {
             steps {
-                sh 'docker run -d -p 8090:8090 --name="confluence" atlassian/confluence:8.9.7' 
-               
+                sh 'docker run -d -p 8090:8090 --name="confluence" atlassian/confluence:8.9.7'
             }
         }
+
         stage('Deploy') {
             steps {
-                sh 'echo you can now access confluence on http://localhost:8090'
+                sh 'echo "You can now access Confluence on http://localhost:8090"'
             }
         }
-}
     }
 }
