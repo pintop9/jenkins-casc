@@ -12,7 +12,6 @@ services:
     build:
       context: .
       dockerfile: ./docker/Dockerfile
-    env_file: ./.env
     environment:
       - ADMIN_PASSWORD=${ADMIN_PASSWORD:-Admin123!}
       - DOCKER_HOST=tcp://docker:2375
