@@ -30,41 +30,28 @@ This project is configured to persist important data on your local filesystem, e
 
 To run this project, you need **Docker** and **Docker Compose** installed on your machine.
 
-### 1. Set the Admin Password
+### 1. Initial Setup and Running the Environment
 
-You can set the Jenkins admin password in one of two ways.
+The initial admin password is set via an environment variable for the **first run only**. After the first run, the password must be managed within Jenkins itself, as it is stored in the persistent `jenkins_home` volume.
 
-**Method 1: Using a `.env` file (Recommended)**
+**First Run:**
 
-To quickly create a `.env` file with a secure password, run the following command in your terminal, replacing `your-secret-password` with a strong, unique password:
+To build the images and set your initial admin password, run the following command. Replace `your-secret-password` with a strong, unique password:
 
 ```bash
-echo 'ADMIN_PASSWORD="your-secret-password"' > .env
+ADMIN_PASSWORD="your-secret-password" docker-compose up --build -d
 ```
 
-This file is ignored by Git, so your password will not be committed to the repository.
-
-**Method 2: Using an Environment Variable**
-
-You can export the `ADMIN_PASSWORD` as an environment variable in your terminal.
-```bash
-export ADMIN_PASSWORD="your-secret-password"
-```
-
-**Default Password**
-
-If the `ADMIN_PASSWORD` is not configured via a `.env` file or an environment variable *before* running `docker-compose up`, the password will default to `Admin123!`.
+If you do not provide an `ADMIN_PASSWORD` on the first run, it will default to `Admin123!`.
 
 > **CRITICAL WARNING**
->
-> It is absolutely essential to change this default password immediately after your first login for anything other than local, ephemeral testing. For any production or sensitive environment, always use a strong, unique password configured via a `.env` file or environment variable. Failure to do so poses a significant security risk.
+> It is absolutely essential to change the default password immediately after your first login for any production or sensitive environment. Failure to do so poses a significant security risk.
 
-### 2. Build and Run the Environment
+**Subsequent Runs:**
 
-Use Docker Compose to build the custom Jenkins image and start all the services in detached mode.
-
+To start the environment after the initial setup, simply run:
 ```bash
-docker-compose up --build -d
+docker-compose up -d
 ```
 
 ### 3. Accessing Jenkins
