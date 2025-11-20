@@ -32,11 +32,32 @@ To run this project, you need **Docker** and **Docker Compose** installed on you
 
 ### 1. Set the Admin Password
 
-This project uses an environment variable to set the initial Jenkins admin password. Before starting, export the `ADMIN_PASSWORD` variable in your terminal. Choose a secure password.
+You can set the Jenkins admin password in one of two ways.
 
+**Method 1: Using a `.env` file (Recommended)**
+
+To quickly create a `.env` file with a secure password, run the following command in your terminal, replacing `your-secret-password` with a strong, unique password:
+
+```bash
+echo 'ADMIN_PASSWORD="your-secret-password"' > .env
+```
+
+This file is ignored by Git, so your password will not be committed to the repository.
+
+**Method 2: Using an Environment Variable**
+
+You can export the `ADMIN_PASSWORD` as an environment variable in your terminal.
 ```bash
 export ADMIN_PASSWORD="your-secret-password"
 ```
+
+**Default Password**
+
+If the `ADMIN_PASSWORD` is not configured via a `.env` file or an environment variable *before* running `docker-compose up`, the password will default to `Admin123!`.
+
+> **CRITICAL WARNING**
+>
+> It is absolutely essential to change this default password immediately after your first login for anything other than local, ephemeral testing. For any production or sensitive environment, always use a strong, unique password configured via a `.env` file or environment variable. Failure to do so poses a significant security risk.
 
 ### 2. Build and Run the Environment
 
