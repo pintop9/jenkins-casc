@@ -1,3 +1,2 @@
-.env
 jenkins_home/*
 !jenkins_home/casc_configs/*.yaml
